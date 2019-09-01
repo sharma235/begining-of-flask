@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Already registered login here</h1>
+	<form action="/login" method="post">
+		<p>Enter username</p>
+		<input type="text" name="username">
+		<br>
+		<p>Enter password</p>
+		<input type="password" name="password">
+		<br>
+		<input type="submit" name="submit">
+	</form>
+	<br>
+	<h1>New user register here</h1>
+	<form action="/register" method="post">
+		<p>Choose username</p>
+		<input type="text" name="new_username">
+		<br>
+		<p>Choose password</p>
+		<input type="password" name="new_password">
+		<br>
+		<input type="submit" name="submit" value="submit">
+	</form>
+	{% if msg %}
+		<p><strong>{{ msg }}</strong></p>
+	{% endif %}
+	{% if alr %}
+		<p><strong>{{ alr }}</strong></p>
+	{% endif %}
+</body>
+</html>
