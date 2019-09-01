@@ -4,6 +4,12 @@
 	<title></title>
 </head>
 <body>
+	{% if msg %}
+		<p><strong>{{ msg }}</strong></p>
+	{% endif %}
+	{% if alr %}
+		<p><strong>{{ alr }}</strong></p>
+	{% endif %}
 	<h1>Already registered login here</h1>
 	<form action="/login" method="post">
 		<p>Enter username</p>
@@ -25,11 +31,5 @@
 		<br>
 		<input type="submit" name="submit" value="submit">
 	</form>
-	{% if msg %}
-		<p><strong>{{ msg }}</strong></p>
-	{% endif %}
-	{% if alr %}
-		<p><strong>{{ alr }}</strong></p>
-	{% endif %}
 </body>
 </html>

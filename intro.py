@@ -18,7 +18,7 @@ def register():
 			msg = "registered successfully now login"
 			con.commit()
 		con.close()
-		return render_template(('login.html',msg))
+		return render_template('login.html',msg=msg)
 #login as a user
 @app.route('/login', methods =['GET','POST'] )
 def login():
@@ -26,13 +26,14 @@ def login():
 		con = sql.connect("database.db")
 		con.row_factory = sql.Row
 		cur = con.cursor()
-		# name = cur.execute("select * from users where username =(?)",(request.form['username']))
-		# if name:
-		# 	alr="already present user"
-		# 	return render_template(('login.html',alr))
-		# else:
-		session['username'] = request.form['username']
-		return render_template('front.html')
+		cur.execute("select * from users where username =?",[request.form['username']])
+		name=cur.fetchall()
+		if name:
+			session['username'] = request.form['username']
+			return render_template('front.html')
+		else:
+			alr="not registered yet"
+			return render_template('login.html',alr=alr)
 	else:
 		session['username']=request.args.get('username')
 		return render_template('front.html')
