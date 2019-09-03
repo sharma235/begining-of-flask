@@ -14,6 +14,11 @@ def register():
 		password = request.form['new_password']
 		with sql.connect("database.db") as con:
 			cur = con.cursor()
+			cur.execute("select * from users where username =?",[request.form['new_username']])
+			name=cur.fetchall()
+			if name:
+				ms2="already existing username"
+				return render_template("login.html",ms2=ms2)
 			cur.execute("INSERT INTO users (username,password) VALUES (?,?)",(name,password))
 			msg = "registered successfully now login"
 			con.commit()
@@ -30,13 +35,16 @@ def login():
 		name=cur.fetchall()
 		if name:
 			session['username'] = request.form['username']
-			return render_template('front.html')
+			cur.execute("select * from users")
+			lis=cur.fetchall()
+			return render_template('front.html',lis=lis)
 		else:
 			alr="not registered yet"
 			return render_template('login.html',alr=alr)
 	else:
 		session['username']=request.args.get('username')
 		return render_template('front.html')
+	con.close()
 #logout as a user
 @app.route('/logout')
 def logout():

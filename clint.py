@@ -1,5 +1,15 @@
 import socket
-s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((socket.gethostname(), 1025))
-msg = s.recv(1024)
-print(msg.decode("utf-8"))
+def client_program():
+	host = socket.gethostname()
+	port = 4000
+	client_socket = socket.socket()
+	client_socket.connect((host,port))
+	message = raw_input("->")
+	while message.lower().strip()!='bye':
+		client_socket.send(message.encode())
+		data = client_socket.recv(1024).decode()
+		print "received from server: "+str(data)
+		message = raw_input("->")
+	client_socket.close()
+if __name__ == '__main__':
+	client_program()

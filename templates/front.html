@@ -2,6 +2,14 @@
 <html>
 <body>
 	<p>welcome to chat boat</p>
+	<table>
+	{% for user,pass in lis %}
+		<tr>
+			<td>{{user}}</td>
+			<td>{{pass}}</td>
+		</tr>
+	{%endfor%}
+	</table>
 	<a href="/logout">click here to logout</a>
 </body>
 </html>
